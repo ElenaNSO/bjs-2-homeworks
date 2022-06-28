@@ -1,65 +1,63 @@
+//задача 1
+
 function parseCount (isNamber) {
-    let errorOut;
-    
-    if(!(Number.parseInt(isNamber))) {
-        errorOut = new Error('Невалидное значение');
-        return errorOut;
+    if (isNaN(Number.parseInt(isNamber))) {
+        const errorOut = new Error('Невалидное значение');
+        throw errorOut;
     }
     else return Number.parseInt(isNamber);
 }
 
 function validateCount (isNamber) {
-    let isNamberValidate;
-    isNamberValidate = parseCount (isNamber);
-    
-    if(isNamberValidate) {
-        return isNamberValidate;
-    }
-    else {
-        return parseCount (isNamber);
-    }
+    try {
+        return parseCount (isNamber); 
+        }
+       catch (errorOut) {
+          return errorOut; 
+       }
 }
 
-function triangleExists(a,b,c) {
-    if(!((a < (b + c)) && (b < (a + c)) && (c < (b + a)))) {
-        return new Error('Треугольник с такими сторонами не существует');
-    }
-}
+//задача 2
 
 class Triangle {
     constructor(a,b,c) {
         this.a = a;
         this.b = b;
         this.c = c;
+
+        if(!((a < (b + c)) && (b < (a + c)) && (c < (b + a)))) {
+            const errorOut = new Error('Треугольник с такими сторонами не существует');
+            throw errorOut;
+        }
     }
 
     getPerimeter (a,b,c) {
-        if (triangleExists(a,b,c)){
-            return triangleExists(a,b,c);
+        try {
+            return this.a + this.b + this.c;
         }
-        else {
-            return this.a + this.b + this.c;}
+        catch(errorOut) {
+            return errorOut;
+        }
     }
 
     getArea (a,b,c) {
-        if (triangleExists(a,b,c)){
-            return triangleExists(a,b,c);
-        }
-        else {
+        try {
             let p;
             p = this.getPerimeter(a,b,c) / 2;
-            return +Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)).toFixed(3);
+            return +Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)).toFixed(3);  
+        }
+        catch(errorOut) {
+            return errorOut;
         }
     }
 }
 
 function getTriangle(a,b,c) {
-    const newTriangle = new Triangle(a,b,c);
-
-    newTriangle.getPerimeter (a,b,c);
-    newTriangle.getArea (a,b,c);
-    
-    return newTriangle;
+    try {
+        const newTriangle = new Triangle(a,b,c);
+        return newTriangle; 
+    }
+    catch(errorOut) {
+        return errorOut;
+    }
 }
-
-//console.log(getTriangle(2,5,5));
