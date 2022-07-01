@@ -36,7 +36,8 @@ class Triangle {
             return this.a + this.b + this.c;
         }
         catch(errorOut) {
-            return errorOut;
+            const errorgetTriangle = new Error('Ошибка! Треугольник не существует');
+            throw errorgetTriangle;
         }
     }
 
@@ -46,18 +47,27 @@ class Triangle {
             p = this.getPerimeter(a,b,c) / 2;
             return +Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)).toFixed(3);  
         }
-        catch(errorOut) {
+        catch(err) {
+            if(err == errorOut){
             return errorOut;
+            }
         }
     }
-}
+};
 
 function getTriangle(a,b,c) {
     try {
         const newTriangle = new Triangle(a,b,c);
         return newTriangle; 
     }
-    catch(errorOut) {
-        return errorOut;
-    }
+    catch(errorgetTriangle) {  
+       return {
+        getArea(){
+            return 'Ошибка! Треугольник не существует';
+        },
+        getPerimeter(){
+            return 'Ошибка! Треугольник не существует'; 
+        }
+       };
+    };
 }
