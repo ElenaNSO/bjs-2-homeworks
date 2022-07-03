@@ -11,14 +11,8 @@ class AlarmClock {
             throw errorOut;
         }
         
-        function findId(element) {
-            if(element.id === id){
-                return true;   
-            }
-        }
-
         try{
-            if(this.alarmCollection.find(findId)){
+            if(this.alarmCollection.find(element => element.id === id)){
                 console.error(`будильник с таким id = ${id} уже существует.`);
             }
             else {
@@ -33,13 +27,7 @@ class AlarmClock {
     removeClock(id){
         const lengtArrBeforDelete = this.alarmCollection.length;
        
-        function findId(element) {
-            if(element.id === id){
-                return element;   
-            }
-        }
-        
-        this.alarmCollection.splice(this.alarmCollection.findIndex(findId),1)
+        this.alarmCollection.splice(this.alarmCollection.findIndex(element => element.id === id),1)
         const lengtArrAfterDelete = this.alarmCollection.length;
         const resoltDelete = (lengtArrBeforDelete !== lengtArrAfterDelete);
         return resoltDelete;
@@ -62,7 +50,7 @@ class AlarmClock {
 
         function checkClock(element) {
             if(element.time == timeHoursMinutesNow){
-                thisAlarmCollection[thisAlarmCollection.findIndex(findTime)].callback();
+                thisAlarmCollection[thisAlarmCollection.findIndex(element => element.time === time)].callback();
             }
         };
 
